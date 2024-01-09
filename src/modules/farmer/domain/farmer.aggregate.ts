@@ -24,6 +24,10 @@ export class Farmer extends Aggregate<FarmerProps> {
     return this.props.cpfCnpj;
   }
 
+  get name(): string {
+    return this.props.name;
+  }
+
   get farmName(): string {
     return this.props.farmName;
   }
