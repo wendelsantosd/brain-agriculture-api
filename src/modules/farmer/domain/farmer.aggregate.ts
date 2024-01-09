@@ -11,8 +11,8 @@ export type FarmerProps = {
   agriculturalArea: number;
   vegetationArea: number;
   plantedCrops: string[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export class Farmer extends Aggregate<FarmerProps> {
