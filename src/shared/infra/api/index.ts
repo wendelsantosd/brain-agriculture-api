@@ -1,8 +1,8 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { server } from '@shared/config/env/server';
 import { json } from 'express';
-import { server } from 'src/shared/config/env/server';
 import { AppModule } from './app.module';
 
 export async function bootstrapAPI() {
