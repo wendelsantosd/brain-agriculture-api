@@ -7,18 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model farmers {
-  id String @id @unique @default(uuid())
-  name String
-  cpf_cnpj String
-  farm_name String
-  city String
-  state String
-  total_area String
-  agricultural_area String 
-  vegetation_area String
-  planted_crops String[]
-  created_at DateTime @default(now())
-  updated_at DateTime? @updatedAt
+  id               String    @id @unique @default(uuid())
+  name             String
+  cpfCnpj          String
+  farmName         String
+  city             String
+  state            String
+  totalArea        Decimal?  @default(0) @db.Decimal(10, 2)
+  agriculturalArea Decimal?  @default(0) @db.Decimal(10, 2)
+  vegetationArea   Decimal?  @default(0) @db.Decimal(10, 2)
+  plantedArops     String[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime? @updatedAt
 }
