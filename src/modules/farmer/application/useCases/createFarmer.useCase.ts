@@ -1,18 +1,9 @@
 import { Farmer, IFarmerRepository } from '@modules/farmer/domain';
 import { AdapterFarmerDBOToDomain } from '@modules/farmer/infra';
+import { CreateFarmerDTO } from '@modules/farmer/infra/api';
 import { IUseCase, Result } from 'types-ddd';
 
-type Request = {
-  name: string;
-  cpfCnpj: string;
-  farmName: string;
-  city: string;
-  state: string;
-  totalArea: number;
-  agriculturalArea: number;
-  vegetationArea: number;
-  plantedCrops: string[];
-};
+type Request = CreateFarmerDTO;
 
 type Response = Farmer;
 
