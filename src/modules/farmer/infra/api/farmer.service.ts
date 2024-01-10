@@ -3,16 +3,25 @@ import {
   makeCreateFarmer,
   makeDeleteFarmer,
   makeGetFarmers,
+  makeUpdateFarmer,
 } from '@modules/farmer/application';
 import { makeGetFarmerById } from '@modules/farmer/application/factories/makeGetFarmerById.factory';
 import { Injectable } from '@nestjs/common';
 import { Result } from 'types-ddd';
-import { CreateFarmerDTO } from './dtos';
+import { CreateFarmerDTO, UpdateFarmerDTO } from './dtos';
 
 @Injectable()
 export class FarmerService {
   async create(data: CreateFarmerDTO): Promise<Result<Farmer>> {
     const farmer = await makeCreateFarmer().execute(data);
+
+    if (farmer.isFail()) return Result.fail(farmer.error());
+
+    return farmer;
+  }
+
+  async update(data: UpdateFarmerDTO, id: string): Promise<Result<Farmer>> {
+    const farmer = await makeUpdateFarmer().execute({ data, id });
 
     if (farmer.isFail()) return Result.fail(farmer.error());
 

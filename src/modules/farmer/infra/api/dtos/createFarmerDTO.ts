@@ -47,3 +47,6 @@ export class CreateFarmerDTOClass implements CreateFarmerDTO {
 
   plantedCrops: string[];
 }
+
+export type UpdateFarmerDTO = CreateFarmerDTO;
+export class UpdateFarmerDTOClass extends CreateFarmerDTOClass {}

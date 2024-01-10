@@ -10,7 +10,7 @@ export type FarmerProps = {
   totalArea: number;
   agriculturalArea: number;
   vegetationArea: number;
-  plantedCrops: string[];
+  plantedCrops?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -122,5 +122,34 @@ export class Farmer extends Aggregate<FarmerProps> {
     if (isValid.isFail()) return Result.fail(isValid.error());
 
     return Result.Ok(new Farmer(props));
+  }
+
+  public update(props: Partial<FarmerProps>): Result<void> {
+    const isValid = Farmer.isValid({
+      cpfCnpj: props.cpfCnpj ?? this.cpfCnpj,
+      name: props.name ?? this.name,
+      farmName: props.farmName ?? this.farmName,
+      city: props.city ?? this.city,
+      state: props.state ?? this.state,
+      totalArea: props.totalArea ?? this.totalArea,
+      agriculturalArea: props.agriculturalArea ?? this.agriculturalArea,
+      vegetationArea: props.vegetationArea ?? this.vegetationArea,
+    });
+
+    if (isValid.isFail()) return Result.fail(isValid.error());
+
+    if (props.cpfCnpj) this.change('cpfCnpj', props.cpfCnpj);
+    if (props.name) this.change('name', props.name);
+    if (props.farmName) this.change('farmName', props.farmName);
+    if (props.city) this.change('city', props.city);
+    if (props.state) this.change('state', props.state);
+    if (props.totalArea) this.change('totalArea', props.totalArea);
+    if (props.agriculturalArea)
+      this.change('agriculturalArea', props.agriculturalArea);
+    if (props.vegetationArea)
+      this.change('vegetationArea', props.vegetationArea);
+    if (props.plantedCrops) this.change('plantedCrops', props.plantedCrops);
+
+    return Result.Ok();
   }
 }

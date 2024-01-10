@@ -1,11 +1,12 @@
 import { Farmer } from '@modules/farmer/domain';
 import { farmers } from '@prisma/client';
-import { IAdapter, Result } from 'types-ddd';
+import { IAdapter, ID, Result } from 'types-ddd';
 import { FarmerDBO } from '../repository';
 
 export class AdapterFarmerDBOToDomain implements IAdapter<FarmerDBO, Farmer> {
   public build(target: FarmerDBO): Result<Farmer> {
     const farmer = Farmer.create({
+      id: ID.create(target.id),
       name: target.name,
       farmName: target.farmName,
       cpfCnpj: target.cpfCnpj,

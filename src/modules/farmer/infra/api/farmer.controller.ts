@@ -6,9 +6,10 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   Res,
 } from '@nestjs/common';
-import { CreateFarmerDTOClass } from './dtos';
+import { CreateFarmerDTOClass, UpdateFarmerDTOClass } from './dtos';
 import { FarmerService } from './farmer.service';
 import { Response } from 'express';
 import { FarmerPresenter, FarmersPresenter } from '@modules/farmer';
@@ -46,7 +47,7 @@ export class farmerController {
   }
 
   @Post()
-  async farmerCreate(
+  async createFarmer(
     @Body() data: CreateFarmerDTOClass,
     @Res() response: Response,
   ) {
@@ -59,6 +60,24 @@ export class farmerController {
 
     return response.status(HttpStatus.OK).json({
       message: 'Produtor rural criado com sucesso',
+    });
+  }
+
+  @Put('/:id')
+  async updateFarmer(
+    @Param('id') id: string,
+    @Body() data: UpdateFarmerDTOClass,
+    @Res() response: Response,
+  ) {
+    const result = await this.farmerService.update(data, id);
+
+    if (result.isFail())
+      return response.status(HttpStatus.BAD_REQUEST).json({
+        message: result.error(),
+      });
+
+    return response.status(HttpStatus.OK).json({
+      message: 'Produtor rural alterado com sucesso',
     });
   }
 

@@ -31,6 +31,7 @@ export class FarmerRepository implements IFarmerRepository {
   async save(farmer: Farmer): Promise<Result<Farmer>> {
     try {
       const adapterFarmer = new AdapterFarmerDBOToDomain();
+
       const data: FarmerDBO = {
         id: farmer.id.value(),
         name: farmer.name,
@@ -44,7 +45,12 @@ export class FarmerRepository implements IFarmerRepository {
         plantedCrops: farmer.plantedCrops,
       };
 
-      const farmerDB = await this.orm.farmers.create({ data });
+      const farmerDB = await this.orm.farmers.upsert({
+        create: data,
+        update: data,
+        where: { id: data.id },
+      });
+
       const preparedFarmer = adapterFarmer.prepare(farmerDB);
       const buildedFarmer = adapterFarmer.build(preparedFarmer);
 
