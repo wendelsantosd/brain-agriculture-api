@@ -1,4 +1,4 @@
-import { Farmers } from '@modules/farmer/domain';
+import { Farmer, Farmers } from '@modules/farmer/domain';
 
 type FarmerPresenterProps = {
   id: string;
@@ -11,8 +11,8 @@ type FarmerPresenterProps = {
   agriculturalArea: number;
   vegetationArea: number;
   plantedCrops: string[];
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 type FarmersPresenterProps = {
@@ -44,6 +44,25 @@ export class FarmersPresenter {
     return {
       farmers,
       metadata: { count: data.metadata.count },
+    };
+  }
+}
+
+export class FarmerPresenter {
+  public toPresenter(data: Farmer): FarmerPresenterProps {
+    return {
+      id: data.id.value(),
+      name: data.name,
+      cpfCnpj: data.cpfCnpj,
+      farmName: data.farmName,
+      city: data.city,
+      state: data.state,
+      totalArea: data.totalArea,
+      agriculturalArea: data.agriculturalArea,
+      vegetationArea: data.vegetationArea,
+      plantedCrops: data.plantedCrops,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
     };
   }
 }

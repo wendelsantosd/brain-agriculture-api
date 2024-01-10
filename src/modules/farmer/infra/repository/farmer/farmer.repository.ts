@@ -7,6 +7,27 @@ import { FarmerDBO } from './farmer.dbo';
 export class FarmerRepository implements IFarmerRepository {
   constructor(private readonly orm: PrismaService) {}
 
+  async getFarmById(id: string): Promise<Result<Farmer>> {
+    try {
+      const adapterFarmer = new AdapterFarmerDBOToDomain();
+
+      const farmerDB = await this.orm.farmers.findUnique({
+        where: { id },
+      });
+
+      if (!farmerDB) return Result.fail('Produtor agricultor não encontrado');
+
+      const preparedFarmer = adapterFarmer.prepare(farmerDB);
+      const buildedFarmer = adapterFarmer.build(preparedFarmer);
+
+      return Result.Ok(buildedFarmer.value());
+    } catch (error) {
+      return Result.fail(
+        `Houve um erro interno ao procurar o produtor agricultor: ${error.message}`,
+      );
+    }
+  }
+
   async save(farmer: Farmer): Promise<Result<Farmer>> {
     try {
       const adapterFarmer = new AdapterFarmerDBOToDomain();

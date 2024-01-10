@@ -1,8 +1,16 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { CreateFarmerDTOClass } from './dtos';
 import { FarmerService } from './farmer.service';
 import { Response } from 'express';
-import { FarmersPresenter } from '@modules/farmer';
+import { FarmerPresenter, FarmersPresenter } from '@modules/farmer';
 
 @Controller('farmer')
 export class farmerController {
@@ -20,6 +28,20 @@ export class farmerController {
     return response
       .status(HttpStatus.OK)
       .json(new FarmersPresenter().toPresenter(result.value()));
+  }
+
+  @Get('/:id')
+  async getFarmerById(@Param('id') id: string, @Res() response: Response) {
+    const result = await this.farmerService.findById(id);
+
+    if (result.isFail())
+      return response.status(HttpStatus.NOT_FOUND).json({
+        message: result.error(),
+      });
+
+    return response
+      .status(HttpStatus.OK)
+      .json(new FarmerPresenter().toPresenter(result.value()));
   }
 
   @Post()

@@ -10,4 +10,5 @@ export type Farmers = {
 export interface IFarmerRepository {
   save(farmer: Farmer): Promise<Result<Farmer>>;
   getFarmers(): Promise<Result<Farmers>>;
+  getFarmById(id: string): Promise<Result<Farmer>>;
 }
