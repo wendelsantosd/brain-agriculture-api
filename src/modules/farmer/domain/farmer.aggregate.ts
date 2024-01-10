@@ -15,6 +15,36 @@ export type FarmerProps = {
   updatedAt?: Date;
 };
 
+export enum StateEnum {
+  AC = 'Acre',
+  AL = 'Alagoas',
+  AP = 'Amapá',
+  AM = 'Amazonas',
+  BA = 'Bahia',
+  CE = 'Ceará',
+  DF = 'Distrito Federal',
+  ES = 'Espírito Santo',
+  GO = 'Goiás',
+  MA = 'Maranhão',
+  MT = 'Mato Grosso',
+  MS = 'Mato Grosso do Sul',
+  MG = 'Minas Gerais',
+  PA = 'Pará',
+  PB = 'Paraíba',
+  PR = 'Paraná',
+  PE = 'Pernambuco',
+  PI = 'Piauí',
+  RJ = 'Rio de Janeiro',
+  RN = 'Rio Grande do Norte',
+  RS = 'Rio Grande do Sul',
+  RO = 'Rondônia',
+  RR = 'Roraima',
+  SC = 'Santa Catarina',
+  SP = 'São Paulo',
+  SE = 'Sergipe',
+  TO = 'Tocantins',
+}
+
 export class Farmer extends Aggregate<FarmerProps> {
   private constructor(props: FarmerProps) {
     super(props);
@@ -94,6 +124,10 @@ export class Farmer extends Aggregate<FarmerProps> {
 
     if (string(state).isEmpty())
       return Result.fail('O estado não pode ser vazia');
+
+    if (!StateEnum[state]) {
+      return Result.fail('O estado informado é inválido');
+    }
 
     if (!totalArea)
       return Result.fail('O valor total da área não pode ser vazio');

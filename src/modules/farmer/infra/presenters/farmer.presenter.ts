@@ -1,4 +1,4 @@
-import { Farmer, Farmers } from '@modules/farmer/domain';
+import { Farmer, Farmers, StateEnum } from '@modules/farmer/domain';
 
 type FarmerPresenterProps = {
   id: string;
@@ -56,7 +56,7 @@ export class FarmerPresenter {
       cpfCnpj: data.cpfCnpj,
       farmName: data.farmName,
       city: data.city,
-      state: data.state,
+      state: StateEnum[data.state],
       totalArea: data.totalArea,
       agriculturalArea: data.agriculturalArea,
       vegetationArea: data.vegetationArea,

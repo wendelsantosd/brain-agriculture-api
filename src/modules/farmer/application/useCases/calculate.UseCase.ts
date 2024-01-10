@@ -1,4 +1,4 @@
-import { IFarmerRepository } from '@modules/farmer/domain';
+import { IFarmerRepository, StateEnum } from '@modules/farmer/domain';
 import { IUseCase, Result } from 'types-ddd';
 type Request = void;
 type Response = CalculateResponse;
@@ -47,36 +47,6 @@ export type CalculateResponse = {
     vegetation: number;
   };
 };
-
-enum StateEnum {
-  AC = 'Acre',
-  AL = 'Alagoas',
-  AP = 'Amapá',
-  AM = 'Amazonas',
-  BA = 'Bahia',
-  CE = 'Ceará',
-  DF = 'Distrito Federal',
-  ES = 'Espírito Santo',
-  GO = 'Goiás',
-  MA = 'Maranhão',
-  MT = 'Mato Grosso',
-  MS = 'Mato Grosso do Sul',
-  MG = 'Minas Gerais',
-  PA = 'Pará',
-  PB = 'Paraíba',
-  PR = 'Paraná',
-  PE = 'Pernambuco',
-  PI = 'Piauí',
-  RJ = 'Rio de Janeiro',
-  RN = 'Rio Grande do Norte',
-  RS = 'Rio Grande do Sul',
-  RO = 'Rondônia',
-  RR = 'Roraima',
-  SC = 'Santa Catarina',
-  SP = 'São Paulo',
-  SE = 'Sergipe',
-  TO = 'Tocantins',
-}
 
 enum CropEnum {
   SOY = 'Soja',
