@@ -23,7 +23,7 @@ export class farmerController {
     const result = await this.farmerService.calculate();
 
     if (result.isFail())
-      return response.status(HttpStatus.NOT_FOUND).json({
+      return response.status(HttpStatus.BAD_REQUEST).json({
         message: result.error(),
       });
 
