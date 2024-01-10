@@ -1,4 +1,4 @@
-import { Farmer, IFarmerRepository } from '@modules/farmer/domain';
+import { Farmer, Farmers, IFarmerRepository } from '@modules/farmer/domain';
 import { PrismaService } from '@shared/infra/db/prisma.service';
 import { Result } from 'types-ddd';
 import { AdapterFarmerDBOToDomain } from '../../adapters';
@@ -31,6 +31,35 @@ export class FarmerRepository implements IFarmerRepository {
     } catch (error) {
       return Result.fail(
         `Houve um erro interno ao salvar o produtor agricultor: ${error.message}`,
+      );
+    }
+  }
+
+  async getFarmers(): Promise<Result<Farmers>> {
+    try {
+      const adapterFarmer = new AdapterFarmerDBOToDomain();
+
+      const farmersDB = await this.orm.farmers.findMany();
+
+      const count = await this.orm.farmers.count();
+
+      const preparedFarmers = farmersDB.map((farmer) =>
+        adapterFarmer.prepare(farmer),
+      );
+
+      const buildedFarmers = preparedFarmers.map((farmer) =>
+        adapterFarmer.build(farmer).value(),
+      );
+
+      return Result.Ok({
+        farmers: buildedFarmers,
+        metadata: {
+          count,
+        },
+      });
+    } catch (error) {
+      return Result.fail(
+        `Houve um erro interno ao procurar produtores agricultores: ${error.message}`,
       );
     }
   }
