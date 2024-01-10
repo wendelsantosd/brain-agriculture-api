@@ -86,7 +86,7 @@ export class FarmerRepository implements IFarmerRepository {
       });
     } catch (error) {
       return Result.fail(
-        `Houve um erro interno ao procurar produtores: ${error.message}`,
+        `Houve um erro interno ao listar produtores: ${error.message}`,
       );
     }
   }
