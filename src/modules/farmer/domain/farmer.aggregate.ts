@@ -76,10 +76,12 @@ export class Farmer extends Aggregate<FarmerProps> {
   }: FarmerProps) {
     const { string } = this.validator;
     if (
-      !string(cpfCnpj).hasLengthEqualTo(11) ||
-      !string(cpfCnpj).hasLengthEqualTo(14)
-    )
+      string(cpfCnpj).hasLengthEqualTo(11) ||
+      string(cpfCnpj).hasLengthEqualTo(14)
+    ) {
+    } else {
       return Result.fail('O CPF ou CNPJ está incorreto');
+    }
 
     if (string(name).isEmpty())
       return Result.fail('O nome do produtor não pode ser vazio');
@@ -110,6 +112,8 @@ export class Farmer extends Aggregate<FarmerProps> {
       return Result.fail(
         'A soma das áreas não pode ser maior que a área total',
       );
+
+    return Result.Ok();
   }
 
   public static create(props: FarmerProps): Result<Farmer> {

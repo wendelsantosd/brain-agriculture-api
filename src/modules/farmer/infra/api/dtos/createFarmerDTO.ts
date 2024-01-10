@@ -33,16 +33,16 @@ export class CreateFarmerDTOClass implements CreateFarmerDTO {
   @IsNotEmpty()
   state: string;
 
-  @IsString()
   @IsNumber()
+  @IsNotEmpty()
   totalArea: number;
 
-  @IsString()
   @IsNumber()
+  @IsNotEmpty()
   agriculturalArea: number;
 
-  @IsString()
   @IsNumber()
+  @IsNotEmpty()
   vegetationArea: number;
 
   plantedCrops: string[];
