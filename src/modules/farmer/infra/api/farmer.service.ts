@@ -1,5 +1,9 @@
 import { Farmer, Farmers } from '@modules/farmer';
-import { makeCreateFarmer, makeGetFarmers } from '@modules/farmer/application';
+import {
+  makeCreateFarmer,
+  makeDeleteFarmer,
+  makeGetFarmers,
+} from '@modules/farmer/application';
 import { makeGetFarmerById } from '@modules/farmer/application/factories/makeGetFarmerById.factory';
 import { Injectable } from '@nestjs/common';
 import { Result } from 'types-ddd';
@@ -29,5 +33,13 @@ export class FarmerService {
     if (farmer.isFail()) return Result.fail(farmer.error());
 
     return farmer;
+  }
+
+  async delete(id: string): Promise<Result<string>> {
+    const message = await makeDeleteFarmer().execute({ id });
+
+    if (message.isFail()) return Result.fail(message.error());
+
+    return message;
   }
 }

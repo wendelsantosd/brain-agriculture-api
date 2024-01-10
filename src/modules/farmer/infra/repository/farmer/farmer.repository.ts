@@ -15,7 +15,7 @@ export class FarmerRepository implements IFarmerRepository {
         where: { id },
       });
 
-      if (!farmerDB) return Result.fail('Produtor agricultor não encontrado');
+      if (!farmerDB) return Result.fail('Produtor não encontrado');
 
       const preparedFarmer = adapterFarmer.prepare(farmerDB);
       const buildedFarmer = adapterFarmer.build(preparedFarmer);
@@ -23,7 +23,7 @@ export class FarmerRepository implements IFarmerRepository {
       return Result.Ok(buildedFarmer.value());
     } catch (error) {
       return Result.fail(
-        `Houve um erro interno ao procurar o produtor agricultor: ${error.message}`,
+        `Houve um erro interno ao procurar o produtor: ${error.message}`,
       );
     }
   }
@@ -51,7 +51,7 @@ export class FarmerRepository implements IFarmerRepository {
       return Result.Ok(buildedFarmer.value());
     } catch (error) {
       return Result.fail(
-        `Houve um erro interno ao salvar o produtor agricultor: ${error.message}`,
+        `Houve um erro interno ao salvar o produtor: ${error.message}`,
       );
     }
   }
@@ -80,7 +80,27 @@ export class FarmerRepository implements IFarmerRepository {
       });
     } catch (error) {
       return Result.fail(
-        `Houve um erro interno ao procurar produtores agricultores: ${error.message}`,
+        `Houve um erro interno ao procurar produtores: ${error.message}`,
+      );
+    }
+  }
+
+  async deleteFarm(id: string): Promise<Result<string>> {
+    try {
+      const farmer = await this.orm.farmers.findUnique({
+        where: { id },
+      });
+
+      if (!farmer) return Result.fail('Produtor não encontrado');
+
+      await this.orm.farmers.delete({
+        where: { id },
+      });
+
+      return Result.Ok('Produtor apagado com sucesso');
+    } catch (error) {
+      return Result.fail(
+        `Houve um erro ao tentar deletar o produtor: ${error.message}`,
       );
     }
   }
