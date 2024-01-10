@@ -68,7 +68,10 @@ export class CalculateUseCase implements IUseCase<Request, Result<Response>> {
 
     const totalFarms = farmersAggregate.value().metadata.count;
 
-    const totalArea = farmers.reduce((_, farmer) => farmer.totalArea, 0);
+    const totalArea = farmers.reduce(
+      (acc, farmer) => (acc += farmer.totalArea),
+      0,
+    );
 
     const totalPerState = farmers.reduce(
       (acc, farmer) => {
