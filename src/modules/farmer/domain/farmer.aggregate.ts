@@ -103,6 +103,7 @@ export class Farmer extends Aggregate<FarmerProps> {
     totalArea,
     agriculturalArea,
     vegetationArea,
+    plantedCrops,
   }: FarmerProps) {
     const { string } = this.validator;
     if (
@@ -145,6 +146,23 @@ export class Farmer extends Aggregate<FarmerProps> {
     if (agriculturalArea + vegetationArea > totalArea)
       return Result.fail(
         'A soma das áreas não pode ser maior que a área total',
+      );
+
+    const permittedCrops = [
+      'Soja',
+      'Milho',
+      'Algodão',
+      'Café',
+      'Cana de Açucar',
+    ];
+
+    const hasInvalidCrop =
+      plantedCrops &&
+      plantedCrops.some((crop) => !permittedCrops.includes(crop));
+
+    if (hasInvalidCrop)
+      return Result.fail(
+        'Somente são aceitas as seguintes culturas: Soja, Milho, Algodão, Café, Cana de Açucar',
       );
 
     return Result.Ok();
