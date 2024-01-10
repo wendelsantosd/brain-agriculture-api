@@ -18,6 +18,18 @@ import { FarmerPresenter, FarmersPresenter } from '@modules/farmer';
 export class farmerController {
   constructor(private readonly farmerService: FarmerService) {}
 
+  @Get('/calculate')
+  async dashboard(@Res() response: Response) {
+    const result = await this.farmerService.calculate();
+
+    if (result.isFail())
+      return response.status(HttpStatus.NOT_FOUND).json({
+        message: result.error(),
+      });
+
+    return response.status(HttpStatus.OK).json(result.value());
+  }
+
   @Get()
   async getFarmers(@Res() response: Response) {
     const result = await this.farmerService.findAll();

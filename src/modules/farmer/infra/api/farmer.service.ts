@@ -1,5 +1,7 @@
 import { Farmer, Farmers } from '@modules/farmer';
 import {
+  CalculateResponse,
+  makeCalculate,
   makeCreateFarmer,
   makeDeleteFarmer,
   makeGetFarmers,
@@ -50,5 +52,13 @@ export class FarmerService {
     if (message.isFail()) return Result.fail(message.error());
 
     return message;
+  }
+
+  async calculate(): Promise<Result<CalculateResponse>> {
+    const data = await makeCalculate().execute();
+
+    if (data.isFail()) return Result.fail(data.error());
+
+    return data;
   }
 }
