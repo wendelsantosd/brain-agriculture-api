@@ -2,6 +2,7 @@ import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
 import { CreateFarmerDTOClass } from './dtos';
 import { FarmerService } from './farmer.service';
 import { Response } from 'express';
+import { FarmersPresenter } from '@modules/farmer';
 
 @Controller('farmer')
 export class farmerController {
@@ -16,7 +17,9 @@ export class farmerController {
         message: result.error(),
       });
 
-    return response.status(HttpStatus.OK).json(result.value());
+    return response
+      .status(HttpStatus.OK)
+      .json(new FarmersPresenter().toPresenter(result.value()));
   }
 
   @Post()
