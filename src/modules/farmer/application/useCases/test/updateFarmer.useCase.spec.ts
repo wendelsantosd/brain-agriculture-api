@@ -20,7 +20,7 @@ type InputProps = {
   plantedCrops: string[];
 };
 
-describe('Test Update Farmer', () => {
+describe('Test List Farmer', () => {
   let useCase: UpdateFarmerUseCase;
   let mockFarmer: Farmer;
   let mockFarmerRepository: sinon.SinonStubbedInstance<FarmerRepository>;
