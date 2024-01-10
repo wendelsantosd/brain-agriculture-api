@@ -91,9 +91,10 @@ export class CalculateUseCase implements IUseCase<Request, Result<Response>> {
 
   async execute(): Promise<Result<Response>> {
     const farmersAggregate = await this.farmerRepository.getFarmers();
-    const farmers = farmersAggregate.value().farmers;
 
     if (farmersAggregate.isFail()) return Result.fail(farmersAggregate.error());
+
+    const farmers = farmersAggregate.value().farmers;
 
     const totalFarms = farmersAggregate.value().metadata.count;
 
