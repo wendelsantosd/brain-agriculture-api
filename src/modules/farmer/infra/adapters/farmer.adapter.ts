@@ -14,7 +14,7 @@ export class AdapterFarmerDBOToDomain implements IAdapter<FarmerDBO, Farmer> {
       state: target.state,
       totalArea: target.totalArea,
       agriculturalArea: target.agriculturalArea,
-      vegetationArea: target.agriculturalArea,
+      vegetationArea: target.vegetationArea,
       plantedCrops: target.plantedCrops,
     });
 
