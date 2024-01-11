@@ -154,6 +154,12 @@ GET
 /farmer/calculate
 ```
 
+# Brain Agriculture WEB
+
+```shell
+https://github.com/wendelsantosd/brain-agriculture-web
+```
+
 # Contact us
 
 <p style="font-size: 18px;">
