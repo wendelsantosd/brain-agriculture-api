@@ -52,6 +52,12 @@ yarn start:dev
 docker compose -f docker-compose.local.yml up -d
 ```
 
+2. Run migrations:
+
+```shell
+yarn prisma migrate dev -n init
+```
+
 # Routes
 
 1. Create a Farmer
